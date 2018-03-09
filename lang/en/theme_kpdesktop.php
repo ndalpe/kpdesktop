@@ -27,7 +27,7 @@
 $string['choosereadme'] = 'Desktop Theme for IOMAD based on Iomad Boost.';
 
 // The name of our plugin.
-$string['pluginname'] = 'KPDesktop';
+$string['pluginname'] = 'kpdesktop';
 
 // We need to include a lang string for each block region.
 $string['region-side-pre'] = 'Right';
