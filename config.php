@@ -30,11 +30,10 @@ require_once(__DIR__ . '/lib.php');
 
 $THEME->name = 'kpdesktop';
 
-//$THEME->sheets = ['kansaipaint', 'font-iomad', 'iomad'];
-$THEME->sheets = [];
+$THEME->sheets = ['style'];
 
 $THEME->editor_sheets = [];
-$THEME->parents = ['iomadboost'];
+$THEME->parents = ['iomadboost', 'boost'];
 $THEME->enable_dock = false;
 $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
