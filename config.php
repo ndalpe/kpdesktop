@@ -30,7 +30,14 @@ require_once(__DIR__ . '/lib.php');
 
 $THEME->name = 'kpdesktop';
 
-$THEME->sheets = ['style'];
+// Get the parents theme SCSS
+$THEME->scss = function() {
+	$parentconfig = theme_config::load('boost');
+	return theme_boost_get_main_scss_content($parentconfig);
+};
+
+// Get the kpdesktop theme styling
+$THEME->extrascsscallback = 'theme_kpdesktop_get_extra_scss';
 
 $THEME->editor_sheets = [];
 $THEME->parents = ['iomadboost', 'boost'];

@@ -1,6 +1,17 @@
+/* Import boost theme SCSS */
+/* @import "../../boost/scss/moodle"; */
+/* @import "../../boost/scss/preset/default";
+@import "../../boostiomad/style/font-iomad";
+@import "../../boostiomad/style/iomad";
+@import "../../boostiomad/style/kansaipaint";
+ */
+
+$bkgColor: #000;
+
 /** Changed the background color behind the menu **/
 [data-region="drawer"] {
-	background-color: #edeeee;
+	/*background-color: #edeeee;*/
+	background-color: lighten($bkgColor, 81%);
 }
 
 /** Change menu items background color **/

@@ -25,3 +25,15 @@
 
 // This line protects the file from being accessed by a URL directly.
 defined('MOODLE_INTERNAL') || die();
+
+function theme_kpdesktop_get_extra_scss() {
+	global $CFG;
+
+	$scss = '';
+
+	// Get the fancy modal css to display mangga
+	$scss .= file_get_contents(__DIR__.'/scss/kp_modal.scss');
+	$scss .= file_get_contents(__DIR__.'/scss/main.scss');
+
+	return $scss;
+}
