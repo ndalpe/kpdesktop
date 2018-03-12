@@ -4,7 +4,7 @@ $bkgColor: #000;
 /** Changed the background color behind the menu **/
 [data-region="drawer"] {
 	/*background-color: #edeeee;*/
-	background-color: lighten($bkgColor, 81%);
+	background-color: lighten($bkgColor, 90%);
 }
 
 /** Change menu items background color **/
@@ -17,8 +17,30 @@ $bkgColor: #000;
 	color: #aca5a9;
 }
 
+#region-main {
+	> .card {
+		border: 0;
+	}
+}
+
+/*****************************/
+/**** Hide Breadcrumb nav ****/
+#page-navbar {
+	display: none;
+}
+
+.admin #page-navbar {
+	display: inherit;
+}
+
 /*********************************/
 /**** Hide useless menu items ****/
 [data-key="home"], [data-key="calendar"], [data-key="privatefiles"] {
+	display: none;
+}
+
+/*************************************************/
+/**** Hide stupid announcments link in course ****/
+.activity.forum.modtype_forum {
 	display: none;
 }
