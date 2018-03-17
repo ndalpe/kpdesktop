@@ -31,3 +31,5 @@ $string['pluginname'] = 'kpdesktop';
 
 // We need to include a lang string for each block region.
 $string['region-side-pre'] = 'Right';
+
+$string['completed'] = 'Completed';
