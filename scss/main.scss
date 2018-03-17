@@ -1,10 +1,25 @@
 /** Color to derived shades from **/
 $bkgColor: #000;
 
+$blue: #000E6E;
+$orange: #EF4136;
+
+
+@font-face { /* where FontName and fontname represents the name of the font you want to add */
+	font-family: 'OpenSans';
+	src: url([[font:theme|OpenSans-Regular.ttf]]) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 /** Changed the background color behind the menu **/
-[data-region="drawer"] {
+body, [data-region="drawer"] {
 	/*background-color: #edeeee;*/
 	background-color: lighten($bkgColor, 90%);
+}
+
+body {
+	color: #000;
 }
 
 /** Change menu items background color **/
@@ -15,6 +30,173 @@ $bkgColor: #000;
 /** Change menu items text color **/
 .list-group-item, .list-group-item-action {
 	color: #aca5a9;
+}
+
+.pagelayout-mydashboard, .pagelayout-course, .pagelayout-incourse {
+	#page-header {
+		.card {
+			background: #fff url([[pix:theme|header_paint_splash]]) no-repeat left bottom;
+		}
+	}
+}
+
+.pagelayout-course, .pagelayout-incourse {
+	#page-header {
+		.p-a-1 {
+			padding-bottom: 0px !important;
+		}
+		.card {
+			margin-bottom: 0;
+		}
+	}
+	#region-main {
+		border: 1px solid #a8a8a8;
+		border-top-left-radius: 0px;
+		border-top-right-radius: 0px;
+		border-top-width: 0px;
+		padding: 0px 0px;
+
+		#course_content {
+			border-right: 1px solid #CCC;
+		}
+		div[role="main"] {
+			padding: 45px 0px 5px 4px;
+		}
+		.card {
+			border: 0;
+		}
+		h2 {
+			color: $blue;
+		}
+		h3 {
+			color: $orange;
+		}
+	}
+}
+
+/***************/
+/** Dashboard **/
+.pagelayout-mydashboard {
+	#page-header {
+		.card {
+			.page-header-headings {
+				margin-top: 26px;
+			}
+		}
+	}
+}
+
+/**************************/
+/** Course & lesson view **/
+.pagelayout-course {
+	#page-header {
+		.page-header-headings {
+			margin-top: 54px;
+		}
+	}
+}
+
+/*******************/
+/** Incourse view **/
+.pagelayout-incourse {
+	/** Dispaly the Day-X flag in course page **/
+	#page-header {
+		.card {
+			&:before {
+				background: transparent url([[pix:theme|bkg_flag_day]]) no-repeat left bottom;
+				color: #FFF;
+				content: " ";
+				display: block;
+				height: 41px;
+				left: -15px;
+				padding: 10px 19px;
+				position: absolute;
+				top: 100px;
+				width: 115px;
+				z-index: 999;
+
+				/* Rotate the image and text */
+				-webkit-transform: rotate(-90deg);
+				-moz-transform: rotate(-90deg);
+				-ms-transform: rotate(-90deg);
+				-o-transform: rotate(-90deg);
+				filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+			}
+			.page-header-headings {
+				margin-left: 67px;
+				margin-top: 54px;
+			}
+		}
+	}
+	#region-main {
+		/* hide the next/previous page button and the progress bar */
+		.branchbuttoncontainer, .progress_bar {
+			display: none;
+		}
+	}
+
+	#kpdesign_toolbar_content {
+		bottom: 0;
+		left: 0;
+		margin-left: 15px;
+		margin-right: 30px;
+		position: absolute;
+		right: 0;
+
+		.branchbuttoncontainer {
+			text-align: center;
+			> .singlebutton {
+				margin-bottom: 10px;
+			}
+			.singlebutton+.singlebutton {
+				margin-left: 0;
+			}
+		}
+
+		.btn {
+			border: 0;
+			border-radius: 1.25rem;
+			font-size: .9rem;
+			i {
+				font-size: 1.15rem;
+				vertical-align: bottom;
+			}
+		}
+		.btn-secondary {
+			background-color: $blue;
+			color: #FFF;
+		}
+		.kpdesign_progress_bar {
+			text-align: center;
+			.percent {
+				color: #555;
+				font-size: 2em;
+				line-height: .6em;
+				margin: 0 auto;
+				position: relative;
+				text-align: center;
+				top: 77px;
+				width: 110px;
+				span {
+					font-size: 10pt;
+				}
+			}
+		}
+	}
+}
+
+/***************/
+/** All pages **/
+#page-header {
+	h1 {
+		color: #fff;
+	}
+	.card {
+		border: 0;
+		min-height: 140px;
+		background-color: transparent;
+
+	}
 }
 
 #region-main {
