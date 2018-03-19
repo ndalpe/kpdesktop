@@ -5,11 +5,26 @@ $blue: #000E6E;
 $orange: #EF4136;
 
 
-@font-face { /* where FontName and fontname represents the name of the font you want to add */
-	font-family: 'OpenSans';
-	src: url([[font:theme|OpenSans-Regular.ttf]]) format('truetype');
-	font-weight: normal;
-	font-style: normal;
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url([[font:theme|OpenSans-Regular.eot]]);
+  src: url([[font:theme|OpenSans-Regular.eot]]) format('embedded-opentype'),
+       url([[font:theme|OpenSans-Regular.woff]]) format('woff'),
+       url([[font:theme|OpenSans-Regular.ttf]]) format('truetype'),
+       url([[font:theme|OpenSans-Regular.svg]]) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kefa-Regular';
+  src: url([[font:theme|Kefa-Regular.eot]]);
+  src: url([[font:theme|Kefa-Regular.eot]]) format('embedded-opentype'),
+       url([[font:theme|Kefa-Regular.woff]]) format('woff'),
+       url([[font:theme|Kefa-Regular.ttf]]) format('truetype'),
+       url([[font:theme|Kefa-Regular.svg]]) format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /** Changed the background color behind the menu **/
