@@ -52,6 +52,9 @@ body {
 		.card {
 			background: #fff url([[pix:theme|header_paint_splash]]) no-repeat left bottom;
 		}
+		.page-header-headings h1 {
+			font-family: "Kefa-Regular", "Open Sans", "Helvetica Neue", Arial, sans-serif;
+		}
 	}
 }
 
@@ -101,6 +104,41 @@ body {
 			margin-top: 54px;
 		}
 	}
+	.section li.activity {
+		&.lesson {
+			padding: .2em .2em 2em .2em;
+			&:last-child {
+				padding-bottom: .2em;
+			}
+		}
+		.availabilityinfo {
+			margin-top: 0;
+			&.isrestricted {
+				color: #818a91;
+				.tag-info {
+					background-color: #d9534f;
+				}
+				a {
+					color: #818a91;
+					&:hover {
+						color: #007193;
+					}
+				}
+			}
+		}
+	}
+	.activityinstance {
+		.dimmed_text {
+			color: #515151 !important;
+		}
+		.instancename {
+			vertical-align: super;
+		}
+		img.activityicon {
+			height: 30px;
+			width: 30px;
+		}
+	}
 }
 
 /*******************/
@@ -114,6 +152,9 @@ body {
 				color: #FFF;
 				content: " ";
 				display: block;
+				font-family: "OpenSans-Regular", Arial, sans-serif;
+				font-size: 1.2em;
+				font-weight: 700;
 				height: 41px;
 				left: -15px;
 				padding: 10px 19px;
@@ -149,10 +190,16 @@ body {
 		/* Topic title */
 		h2 {
 			color: $blue;
+			font-family: "Kefa-Regular", Arial, sans-serif;
 		}
 		/* Lesson title */
 		h3 {
 			color: $orange;
+			font-family: "Kefa-Regular", Arial, sans-serif;
+			font-size: 26px;
+		}
+		p {
+			font-family: "OpenSans-Regular", Arial, sans-serif;
 		}
 	}
 
@@ -177,6 +224,7 @@ body {
 		.btn {
 			border: 0;
 			border-radius: 1.25rem;
+			font-family: "OpenSans-Regular", "Helvetica Neue", Arial, sans-serif;
 			font-size: .9rem;
 			i {
 				font-size: 1.15rem;
@@ -191,6 +239,7 @@ body {
 			text-align: center;
 			.percent {
 				color: #555;
+				font-family: "OpenSans-Regular", "Helvetica Neue", Arial, sans-serif;
 				font-size: 2em;
 				line-height: .6em;
 				margin: 0 auto;
@@ -199,7 +248,7 @@ body {
 				top: 77px;
 				width: 110px;
 				span {
-					font-size: 10pt;
+					font-size: 9pt;
 				}
 			}
 		}
@@ -239,11 +288,5 @@ body {
 /*********************************/
 /**** Hide useless menu items ****/
 [data-key="home"], [data-key="calendar"], [data-key="privatefiles"] {
-	display: none;
-}
-
-/*************************************************/
-/**** Hide stupid announcments link in course ****/
-.activity.forum.modtype_forum {
 	display: none;
 }
