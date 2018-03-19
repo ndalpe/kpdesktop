@@ -48,6 +48,8 @@ $THEME->requiredblocks = '';
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
 $THEME->hidefromselector = false;
 
+$THEME->javascripts_footer = array('pagelayout_course');
+
 $THEME->layouts = [
     // Part of course, typical for modules - default page layout if $cm specified in require_login().
     'incourse' => array(

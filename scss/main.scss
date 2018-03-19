@@ -56,20 +56,12 @@ body {
 		border-top-width: 0px;
 		padding: 0px 0px;
 
-		#course_content {
-			border-right: 1px solid #CCC;
-		}
 		div[role="main"] {
 			padding: 45px 0px 5px 4px;
 		}
-		.card {
-			border: 0;
-		}
-		h2 {
-			color: $blue;
-		}
+		/* Topic title */
 		h3 {
-			color: $orange;
+			color: $blue;
 		}
 	}
 }
@@ -129,9 +121,23 @@ body {
 		}
 	}
 	#region-main {
+		.card {
+			border: 0;
+		}
+		#course_content {
+			border-right: 1px solid #CCC;
+		}
 		/* hide the next/previous page button and the progress bar */
 		.branchbuttoncontainer, .progress_bar {
 			display: none;
+		}
+		/* Topic title */
+		h2 {
+			color: $blue;
+		}
+		/* Lesson title */
+		h3 {
+			color: $orange;
 		}
 	}
 
