@@ -1,10 +1,7 @@
 <?php
-
 include_once($CFG->dirroot . "/mod/lesson/renderer.php");
+include_once($CFG->dirroot . "/mod/quiz/renderer.php");
 
-/**
-*
-*/
 class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 {
 
@@ -37,7 +34,7 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	    // Build the buttons
 	    $context = context_module::instance($cm->id);
 
-		// Get the section name
+		// Get the section namename
 	    $Section = $DB->get_record('course_sections', array('id'=>$cm->section), $fields='*', $strictness=IGNORE_MISSING);
 	    $SectionName = format_string($Section->name, true, $lesson->course);
 
@@ -71,4 +68,24 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 
 	    return $output;
 	}
+}
+
+class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
+{
+    public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
+    	global $CFG;
+
+    	// Get the "Day X" number
+    	$Course = $attemptobj->get_course();
+    	$a_title = explode('-', $Course->fullname);
+    	$dayName = strtoupper(trim($a_title[0]));
+    	$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+
+        $output = '';
+        $output .= $this->header();
+        $output .= $this->quiz_notices($messages);
+        $output .= $this->attempt_form($attemptobj, $page, $slots, $id, $nextpage);
+        $output .= $this->footer();
+        return $output;
+    }
 }
