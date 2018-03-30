@@ -75,17 +75,21 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
     public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
     	global $CFG;
 
-    	// Get the "Day X" number
+    	// Add the "Day X" number
     	$Course = $attemptobj->get_course();
     	$a_title = explode('-', $Course->fullname);
     	$dayName = strtoupper(trim($a_title[0]));
     	$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
-        $output = '';
-        $output .= $this->header();
-        $output .= $this->quiz_notices($messages);
-        $output .= $this->attempt_form($attemptobj, $page, $slots, $id, $nextpage);
-        $output .= $this->footer();
-        return $output;
+    	// call the parent method to get the html page content
+        $output = parent::attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage);
+
+        // get the quiz name
+        $quiz = $attemptobj->get_quiz();
+
+        // replce page title with quiz name
+        $output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quiz->name.'</>', $output);
+
+        return $output2;
     }
 }
