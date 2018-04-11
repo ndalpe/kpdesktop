@@ -123,4 +123,18 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
     	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
     }
+
+    public function review_page(quiz_attempt $attemptobj, $slots, $page, $showall, $lastpage, mod_quiz_display_options $displayoptions, $summarydata)
+    {
+    	global $CFG;
+    	$output = parent::review_page($attemptobj, $slots, $page, $showall, $lastpage, $displayoptions, $summarydata);
+
+    	// Add the "Day X" number
+    	$Course = $attemptobj->get_course();
+    	$a_title = explode('-', $Course->fullname);
+    	$dayName = strtoupper(trim($a_title[0]));
+    	// $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+
+    	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+    }
 }
