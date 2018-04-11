@@ -72,6 +72,23 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 
 class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 {
+
+	// attempt start page
+	// /mod/quiz/view.php?id=57
+	public function view_page($course, $quiz, $cm, $context, $viewobj) {
+		global $CFG;
+
+		$output = parent::view_page($course, $quiz, $cm, $context, $viewobj);
+
+		// Add the "Day X" number
+		$a_title = explode('-', $course->fullname);
+		$dayName = strtoupper(trim($a_title[0]));
+		// $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+
+		return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+	}
+
+	// question page
     public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
     	global $CFG;
 
