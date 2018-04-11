@@ -4,7 +4,6 @@ include_once($CFG->dirroot . "/mod/quiz/renderer.php");
 
 class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 {
-
 	/**
 	 * Returns the header for the lesson module
 	 *
@@ -72,7 +71,6 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 
 class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 {
-
 	// attempt start page
 	// /mod/quiz/view.php?id=57
 	public function view_page($course, $quiz, $cm, $context, $viewobj) {
@@ -108,5 +106,21 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
         $output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quiz->name.'</>', $output);
 
         return $output2;
+    }
+
+    // Summary of attempt (submit and finish all)
+    // /mod/quiz/summary.php?attempt=6685
+    public function summary_page($attemptobj, $displayoptions) {
+    	global $CFG;
+
+    	$output = parent::summary_page($attemptobj, $displayoptions);
+
+    	// Add the "Day X" number
+    	$Course = $attemptobj->get_course();
+    	$a_title = explode('-', $Course->fullname);
+    	$dayName = strtoupper(trim($a_title[0]));
+    	// $CFG->additionalhtmlhead .= '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+
+    	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
     }
 }
