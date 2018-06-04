@@ -88,6 +88,7 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 	}
 
 	// question page
+	// /mod/quiz/attempt.php?attempt=6695&cmid=57
     public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
     	global $CFG;
 
