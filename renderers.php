@@ -17,7 +17,6 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	public function header($lesson, $cm, $currenttab = '', $extraeditbuttons = false, $lessonpageid = null, $extrapagetitle = null) {
 	    global $CFG,$DB;
 
-
 	    $activityname = format_string($lesson->name, true, $lesson->course);
 	    if (empty($extrapagetitle)) {
 	        $title = $this->page->course->shortname.": ".$activityname;
@@ -26,7 +25,8 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	    }
 
 	    // Get the "Day X" number
-	    $a_title = explode('-', $title);
+	    $courseFullName = format_string($title, true, 1);
+	    $a_title = explode('-', $courseFullName);
 	    $dayName = strtoupper(trim($a_title[0]));
 	    $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
@@ -79,9 +79,10 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 		$output = parent::view_page($course, $quiz, $cm, $context, $viewobj);
 
 		// Add the "Day X" number
-		$a_title = explode('-', $course->fullname);
+		$courseFullName = format_string($course->fullname, true, 1);
+		$a_title = explode('-', $courseFullName);
 		$dayName = strtoupper(trim($a_title[0]));
-		// $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+		$dayName = format_string($dayName, true, 1);
 
 		return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 	}
@@ -92,7 +93,8 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
     	// Add the "Day X" number
     	$Course = $attemptobj->get_course();
-    	$a_title = explode('-', $Course->fullname);
+    	$courseFullName = format_string($Course->fullname, true, 1);
+    	$a_title = explode('-', $courseFullName);
     	$dayName = strtoupper(trim($a_title[0]));
     	$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
@@ -102,8 +104,11 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
         // get the quiz name
         $quiz = $attemptobj->get_quiz();
 
+        // Format quiz name to be multilanguage compatible
+        $quizName = format_string($quiz->name, true, 1);
+
         // replce page title with quiz name
-        $output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quiz->name.'</>', $output);
+        $output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quizName.'</>', $output);
 
         return $output2;
     }
@@ -117,9 +122,9 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
     	// Add the "Day X" number
     	$Course = $attemptobj->get_course();
-    	$a_title = explode('-', $Course->fullname);
+    	$courseFullName = format_string($Course->fullname, true, 1);
+    	$a_title = explode('-', $courseFullName);
     	$dayName = strtoupper(trim($a_title[0]));
-    	// $CFG->additionalhtmlhead .= '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
     	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
     }
@@ -131,9 +136,9 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
     	// Add the "Day X" number
     	$Course = $attemptobj->get_course();
-    	$a_title = explode('-', $Course->fullname);
+    	$courseFullName = format_string($Course->fullname, true, 1);
+    	$a_title = explode('-', $courseFullName);
     	$dayName = strtoupper(trim($a_title[0]));
-    	// $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
     	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
     }
