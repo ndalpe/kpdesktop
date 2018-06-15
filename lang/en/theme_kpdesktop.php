@@ -32,4 +32,5 @@ $string['pluginname'] = 'kpdesktop';
 // We need to include a lang string for each block region.
 $string['region-side-pre'] = 'Right';
 
+// completed word in completion pie chart in course page content
 $string['completed'] = 'Completed';

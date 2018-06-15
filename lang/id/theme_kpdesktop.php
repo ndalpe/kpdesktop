@@ -23,11 +23,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+// A description shown in the admin theme selector.
+$string['choosereadme'] = 'Desktop Theme for IOMAD based on Iomad Boost.';
 
-$plugin->version   = 2018030902;
-$plugin->requires  = 2016112900;
-$plugin->component = 'theme_kpdesktop';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100',
-];
+// The name of our plugin.
+$string['pluginname'] = 'kpdesktop';
+
+// We need to include a lang string for each block region.
+$string['region-side-pre'] = 'Kanan';
+
+// completed word in completion pie chart in course page content
+$string['completed'] = 'Selesai';
