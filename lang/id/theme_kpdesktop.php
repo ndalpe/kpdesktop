@@ -34,3 +34,5 @@ $string['region-side-pre'] = 'Kanan';
 
 // completed word in completion pie chart in course page content
 $string['completed'] = 'Selesai';
+
+$string['complete-profile'] = 'Silakan lengkapi profil dan bagian karir dari profil Anda';
