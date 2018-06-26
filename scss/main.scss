@@ -281,6 +281,17 @@ header {
         .branchbuttoncontainer, .progress_bar {
             display: none;
         }
+        /* Hide the Answer History in quiz review page */
+        .que {
+            .history {
+                display: none;
+            }
+        }
+        /* bring more space below the attempt count in quiz attempt page */
+        /* ie: /mod/quiz/view.php?id=29&lang=en */
+        .quizattemptcounts {
+            margin-bottom: 1rem!important;
+        }
         /* Topic title */
         h2 {
             color: $blue;
