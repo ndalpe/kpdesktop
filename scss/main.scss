@@ -55,6 +55,15 @@ header {
     .site-name {
         display: none;
     }
+
+    /* Hide useless item in the user menu */
+    .usermenu {
+        a[data-title*="preferences"],
+        a[data-title*="grades"],
+        a[data-title*="messages"] {
+            display: none;
+        }
+    }
 }
 
 /*****************************************************/
@@ -113,11 +122,11 @@ header {
 
 #page-mod-quiz-attempt, #page-mod-quiz-summary, #page-mod-quiz-review {
     section[data-region="blocks-column"] {
-        display: none;
+        /*display: none;*/
     }
     #region-main.has-blocks {
         display: block;
-        width: 100%;
+        /*width: 100%;*/
     }
     .que {
         .info {
@@ -276,6 +285,29 @@ header {
         }
         #course_content {
             border-right: 1px solid #CCC;
+
+            /** Block of content with title, image and p **/
+            /** /mod/lesson/view.php?id=38&pageid=78     **/
+            .block_with_image {
+                margin-bottom: 1.5rem;
+
+                h5 {
+                    margin-bottom: 1rem;
+                }
+                .cnt_img {
+                    margin: 0px 15px 15px 0px;
+                }
+            }
+            .btn i {
+                font-size: 1.15rem;
+                vertical-align: bottom;
+            }
+            .btn i.fa-arrow-circle-o-left {
+                margin-right: 7px;
+            }
+            .btn i.fa-arrow-circle-o-right {
+                margin-left: 7px;
+            }
         }
         /* hide the next/previous page button and the progress bar */
         .branchbuttoncontainer, .progress_bar {
@@ -331,6 +363,7 @@ header {
             border: 0;
             border-radius: 1.25rem;
             font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+            min-width: 117px;
             font-size: .9rem;
             i {
                 font-size: 1.15rem;
@@ -405,6 +438,14 @@ header {
     .media-left, .media-right, .media-body {
         vertical-align: middle;
     }
+}
+
+/*****************************/
+/**** Edit user page ****/
+#id_moodle_additional_names,
+#id_moodle_optional,
+#id_moodle_picture {
+    display: none;
 }
 
 /*****************************/

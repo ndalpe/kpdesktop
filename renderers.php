@@ -24,11 +24,11 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	        $title = $this->page->course->shortname.": ".$activityname.": ".$extrapagetitle;
 	    }
 
-	    // Get the "Day X" number
-	    $courseFullName = format_string($title, true, 1);
-	    $a_title = explode('-', $courseFullName);
-	    $dayName = strtoupper(trim($a_title[0]));
-	    $CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+		// Get the "Day X" number
+		$courseFullName = format_string($this->page->course->fullname, true, 1);
+		$a_title = explode('-', $courseFullName);
+		$dayName = strtoupper(trim($a_title[0]));
+		$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
 	    // Build the buttons
 	    $context = context_module::instance($cm->id);
@@ -66,6 +66,74 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	    }
 
 	    return $output;
+	}
+
+	// Reverse the order of the Go-To-Next-Activity link and the return-to-course-content
+	public function display_eol_page(lesson $lesson, $data) {
+		$output = parent::display_eol_page($lesson, $data);
+
+		// Add an html wrapper because DOMDocument needs a root node
+		$output = '<html>'.$output.'</html>';
+
+		$d = new DOMDocument();
+		$d->loadHTML($output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+		// Add arrow to buttons
+		foreach ($d->getElementsByTagName('a') as $key => $value) {
+
+			// Forward button. Go to "How to use"
+			if (strstr($d->saveHTML($value), '/mod/lesson/view.php?id=')) {
+				// create the right arrow node
+				$arrow = $d->createElement('i');
+				$arrow->setAttribute('class', 'fa fa-arrow-circle-o-right');
+				$d->getElementsByTagName('a')[$key]->appendChild($arrow);
+			}
+
+			// Back button. Return to Day 1 - bla bla bla
+			if (strstr($d->saveHTML($value), '/course/view.php?id=')) {
+				// save the node value
+				$nv = $d->getElementsByTagName('a')[$key]->nodeValue;
+				// Blank the node value to re-insert it after the <i> icon
+				$d->getElementsByTagName('a')[$key]->nodeValue = '';
+
+				// create the left arrow node
+				$arrow = $d->createElement('i');
+				$arrow->setAttribute('class', 'fa fa-arrow-circle-o-left');
+				$d->getElementsByTagName('a')[$key]->appendChild($arrow);
+
+				// append the node value
+				$d->getElementsByTagName('a')[$key]->appendChild(
+					$d->createTextNode($nv)
+				);
+			}
+		}
+
+		// find the lesson link
+		$xpathsearch = new DOMXPath($d);
+		$xpath_results = $xpathsearch->query('//a[contains(@href,"/mod/lesson/view.php")]');
+
+		// save the link's html
+		$goToNextActivity = $d->saveHTML($xpath_results->item(0));
+
+		// remove the link
+		if($link = $xpath_results->item(0)){
+		    $link->parentNode->removeChild($link);
+		}
+
+		// Save the resulting html without the link
+		$html = $d->saveHTML();
+
+		// Remove the <html> wrapper
+		$output = str_replace(array('<html>', '</html>'), '', $html);
+
+		// add the activity link at the end of the document fragment
+		$output = $output.$goToNextActivity;
+
+		// Add bootstrap button css class
+		$output = str_replace('class="centerpadded', 'class="btn btn-primary centerpadded', $output);
+
+		// add the activity link at the bottom of the document fragment
+		return $output;
 	}
 }
 
