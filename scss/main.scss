@@ -26,6 +26,40 @@ body {
     color: #000;
 }
 
+/**
+Additionally, Bootstrap also includes an `.mx-auto` class for horizontally
+centering fixed-width block level content—that is, content that has
+`display: block` and a `width` set—by setting the horizontal margins to `auto`.
+**/
+.m-auto {
+  margin: auto !important;
+}
+
+.mt-auto,
+.my-auto {
+  margin-top: auto !important;
+}
+
+.mr-auto,
+.mx-auto {
+  margin-right: auto !important;
+}
+
+.mb-auto,
+.my-auto {
+  margin-bottom: auto !important;
+}
+
+.ml-auto,
+.mx-auto {
+  margin-left: auto !important;
+}
+
+/** Make the modal on quiz submission confirmation page **/
+.moodle-dialogue {
+    width: 500px !important;
+}
+
 /** Hide the redondant page title **/
 #region-main h2 + h3 {
   display: none;
@@ -260,7 +294,7 @@ header {
                 font-weight: 700;
                 height: 36px;
                 left: -15px;
-                padding: 5px 22px;
+                padding: 5px 16px;
                 position: absolute;
                 top: 100px;
                 width: 112px;
@@ -418,11 +452,6 @@ header {
 /**** Dashboard ****/
 .pagelayout-mydashboard {
     #myoverview_courses_view {
-        /* hide the current | past | future tab in course listing */
-        [data-toggle="btns"] {
-            display: none;
-        }
-
         /* Add padding separating "timeline and courses" tab to course listing */
         [data-region="paging-content-item"] {
             padding-top: 30px;
@@ -438,6 +467,11 @@ header {
     .media-left, .media-right, .media-body {
         vertical-align: middle;
     }
+}
+
+/**** Make the th longer so bahasa malaysia column fit on one line ****/
+table.quizreviewsummary th.cell {
+    width: 12em;
 }
 
 /*****************************/
