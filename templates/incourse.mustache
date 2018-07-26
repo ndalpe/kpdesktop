@@ -175,7 +175,6 @@ require(['jquery', '/theme/kpdesktop/amd/src/easypiechart.min.js', '/theme/kpdes
     var btns = $('#kpdesign_toolbar .branchbuttoncontainer .singlebutton');
 
     /* If there is only one button, make it a next button */
-    console.log(btns.length);
     if (btns.length === 1) {
         btnValue = btns.find("button").html();
         btnValue = btnValue+' <i class="fa fa-arrow-circle-o-right"></i>';
