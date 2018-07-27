@@ -320,6 +320,23 @@ header {
         #course_content {
             border-right: 1px solid #CCC;
 
+            /** Data table header colors  **/
+            /* exemple: /mod/lesson/edit.php?id=32#lesson-65 */
+            .datatable {
+                .table-color1 {
+                    background-color: #78cbee; /* BLUE */
+                }
+                .table-color2 {
+                    background-color: #adcf60; /* GREEN */
+                }
+                .table-color3 {
+                    background-color: #fdeb6c; /* YELLOW */
+                }
+                .table-color4 {
+                    background-color: #f04c6e; /* RED */
+                }
+            }
+
             /** Block of content with title, image and p **/
             /** /mod/lesson/view.php?id=38&pageid=78     **/
             .block_with_image {
