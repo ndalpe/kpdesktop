@@ -155,12 +155,16 @@ header {
 }
 
 #page-mod-quiz-attempt, #page-mod-quiz-summary, #page-mod-quiz-review {
+
+    /** Hide the quiz navigration column **/
     section[data-region="blocks-column"] {
-        /*display: none;*/
+        display: none;
     }
+
+    /** Expend #region-main section to take 100% with when quiz nav is hidden **/
     #region-main.has-blocks {
         display: block;
-        /*width: 100%;*/
+        width: 100%;
     }
     .que {
         .info {
@@ -324,16 +328,16 @@ header {
             /* exemple: /mod/lesson/edit.php?id=32#lesson-65 */
             .datatable {
                 .table-color1 {
-                    background-color: #78cbee; /* BLUE */
+                    background-color: #96d6f2; /* BLUE */
                 }
                 .table-color2 {
-                    background-color: #adcf60; /* GREEN */
+                    background-color: #bfda83; /* GREEN */
                 }
                 .table-color3 {
-                    background-color: #fdeb6c; /* YELLOW */
+                    background-color: #fdef8d; /* YELLOW */
                 }
                 .table-color4 {
-                    background-color: #f04c6e; /* RED */
+                    background-color: #f3748e; /* RED */
                 }
             }
 
