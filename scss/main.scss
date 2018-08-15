@@ -107,7 +107,8 @@ header {
 .pagelayout-report,
 .pagelayout-mydashboard,
 .pagelayout-course,
-.pagelayout-incourse {
+.pagelayout-incourse,
+.pagelayout-inquiz {
     #page-header {
         .card {
             background: #fff url([[pix:theme|header_paint_splash]]) no-repeat left bottom;
@@ -119,7 +120,8 @@ header {
 }
 
 .pagelayout-course,
-.pagelayout-incourse {
+.pagelayout-incourse,
+.pagelayout-inquiz {
     #page-header {
         .p-a-1 {
             padding-bottom: 0px !important;
@@ -154,19 +156,78 @@ header {
     }
 }
 
+/*****************************************/
+/**** Style the quiz navigation block ****/
+.pagelayout-inquiz {
+    #region-main {
+        /** Remove some padding between the question and the header **/
+        div[role="main"] {
+            padding: 0px 0px 5px 4px;
+        }
+    }
+}
+
+.path-mod-quiz, .pagelayout-inquiz {
+
+    /** Lower the "Day x - Mini Test 1" title in the paint splash header **/
+    .page-header-headings {
+        margin-top: 54px;
+    }
+    [data-region="blocks-column"] {
+        background-color: #FFF;
+        border-bottom: 1px #a8a8a8 solid;
+        border-bottom-right-radius: 4px;
+        border-right: 1px #a8a8a8 solid;
+        /** Make the quiz nav take all the space in the right column **/
+        width: 280px;
+    }
+
+    /** Remove the min-height on questions pane **/
+    #region-main > .card.card-block {
+        min-height: auto;
+    }
+    #region-main {
+        border-bottom-right-radius: 0;
+    }
+    #block-region-side-pre {
+        /** Add overall padding in right column **/
+        padding: 1.25rem;
+
+        #mod_quiz_navblock {
+            border: 0;
+
+            .card-block {
+                background: transparent url([[pix:theme|bkg_block]]) repeat-x left top;
+                padding: 0;
+
+                /** Format Quiz navigation block header **/
+                h3 {
+                    color: #FFF;
+                    font-family: "Open Sans", Arial, sans-serif;
+                    margin-bottom: 0;
+                    padding: 1rem;
+                    &:before {
+                        color: #FFF;
+                        content: "\f0b2";
+                        font-family: FontAwesome;
+                        padding-right: 10px;
+                    }
+                }
+                .card-text.content {
+                    background-color: #FFF;
+                    border-bottom: 1px #ccc solid;
+                    border-right: 1px #ccc solid;
+                    border-left: 1px #ccc solid;
+                    padding: 1rem;
+                }
+            }
+        }
+    }
+}
+
 #page-mod-quiz-attempt, #page-mod-quiz-summary, #page-mod-quiz-review {
-
-    /** Hide the quiz navigration column **/
-    section[data-region="blocks-column"] {
-        display: none;
-    }
-
-    /** Expend #region-main section to take 100% with when quiz nav is hidden **/
-    #region-main.has-blocks {
-        display: block;
-        width: 100%;
-    }
     .que {
+        /* Hide extra question info (top left of question) */
         .info {
             display: none;
         }
@@ -298,7 +359,7 @@ header {
                 font-weight: 700;
                 height: 36px;
                 left: -15px;
-                padding: 5px 16px;
+                padding: 5px 19px;
                 position: absolute;
                 top: 100px;
                 width: 112px;

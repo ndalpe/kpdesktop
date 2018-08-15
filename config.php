@@ -56,5 +56,10 @@ $THEME->layouts = [
         'file' => 'incourse.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-    )
+    ),
+    'inquiz' => array(
+        'file' => 'inquiz.php',
+        'regions' => array('side-pre'),
+        'defaultregion' => 'side-pre',
+    ),
 ];
