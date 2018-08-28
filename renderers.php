@@ -1,4 +1,5 @@
 <?php
+include_once($CFG->dirroot . "/report/iomadanalytics/classes/FlatFile.php");
 include_once($CFG->dirroot . "/mod/lesson/renderer.php");
 include_once($CFG->dirroot . "/mod/quiz/renderer.php");
 
@@ -15,14 +16,14 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 	 * @return string
 	 */
 	public function header($lesson, $cm, $currenttab = '', $extraeditbuttons = false, $lessonpageid = null, $extrapagetitle = null) {
-	    global $CFG,$DB;
+		global $CFG,$DB;
 
-	    $activityname = format_string($lesson->name, true, $lesson->course);
-	    if (empty($extrapagetitle)) {
-	        $title = $this->page->course->shortname.": ".$activityname;
-	    } else {
-	        $title = $this->page->course->shortname.": ".$activityname.": ".$extrapagetitle;
-	    }
+		$activityname = format_string($lesson->name, true, $lesson->course);
+		if (empty($extrapagetitle)) {
+			$title = $this->page->course->shortname.": ".$activityname;
+		} else {
+			$title = $this->page->course->shortname.": ".$activityname.": ".$extrapagetitle;
+		}
 
 		// Get the "Day X" number
 		$courseFullName = format_string($this->page->course->fullname, true, 1);
@@ -30,42 +31,42 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 		$dayName = strtoupper(trim($a_title[0]));
 		$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
-	    // Build the buttons
-	    $context = context_module::instance($cm->id);
+		// Build the buttons
+		$context = context_module::instance($cm->id);
 
 		// Get the section namename
-	    $Section = $DB->get_record('course_sections', array('id'=>$cm->section), $fields='*', $strictness=IGNORE_MISSING);
-	    $SectionName = format_string($Section->name, true, $lesson->course);
+		$Section = $DB->get_record('course_sections', array('id'=>$cm->section), $fields='*', $strictness=IGNORE_MISSING);
+		$SectionName = format_string($Section->name, true, $lesson->course);
 
 		/// Header setup
-	    $this->page->set_title($title);
+		$this->page->set_title($title);
 
-	    // original line
-	    // $this->page->set_heading($this->page->course->fullname);
-	    // Override
-	    $this->page->set_heading($SectionName);
+		// original line
+		// $this->page->set_heading($this->page->course->fullname);
+		// Override
+		$this->page->set_heading($SectionName);
 
-	    lesson_add_header_buttons($cm, $context, $extraeditbuttons, $lessonpageid);
-	    $output = $this->output->header();
+		lesson_add_header_buttons($cm, $context, $extraeditbuttons, $lessonpageid);
+		$output = $this->output->header();
 
-	    if (has_capability('mod/lesson:manage', $context)) {
-	        $output .= $this->output->heading_with_help($activityname, 'overview', 'lesson');
+		if (has_capability('mod/lesson:manage', $context)) {
+			$output .= $this->output->heading_with_help($activityname, 'overview', 'lesson');
 
-	        if (!empty($currenttab)) {
-	            ob_start();
-	            include($CFG->dirroot.'/mod/lesson/tabs.php');
-	            $output .= ob_get_contents();
-	            ob_end_clean();
-	        }
-	    } else {
-	        $output .= $this->output->heading($activityname);
-	    }
+			if (!empty($currenttab)) {
+				ob_start();
+				include($CFG->dirroot.'/mod/lesson/tabs.php');
+				$output .= ob_get_contents();
+				ob_end_clean();
+			}
+		} else {
+			$output .= $this->output->heading($activityname);
+		}
 
-	    foreach ($lesson->messages as $message) {
-	        $output .= $this->output->notification($message[0], $message[1], $message[2]);
-	    }
+		foreach ($lesson->messages as $message) {
+			$output .= $this->output->notification($message[0], $message[1], $message[2]);
+		}
 
-	    return $output;
+		return $output;
 	}
 
 	// Reverse the order of the Go-To-Next-Activity link and the return-to-course-content
@@ -166,58 +167,73 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
 	// question page
 	// /mod/quiz/attempt.php?attempt=6695&cmid=57
-    public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
-    	global $CFG;
+	public function attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage) {
+		global $CFG;
 
-    	// Add the "Day X" number
-    	$Course = $attemptobj->get_course();
-    	$courseFullName = format_string($Course->fullname, true, 1);
-    	$a_title = explode('-', $courseFullName);
-    	$dayName = strtoupper(trim($a_title[0]));
-    	$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+		// Add the "Day X" number
+		$Course = $attemptobj->get_course();
+		$courseFullName = format_string($Course->fullname, true, 1);
+		$a_title = explode('-', $courseFullName);
+		$dayName = strtoupper(trim($a_title[0]));
+		$CFG->additionalhtmlhead = '<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
 
-    	// call the parent method to get the html page content
-        $output = parent::attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage);
+		// call the parent method to get the html page content
+		$output = parent::attempt_page($attemptobj, $page, $accessmanager, $messages, $slots, $id, $nextpage);
 
-        // get the quiz name
-        $quiz = $attemptobj->get_quiz();
+		// get the quiz name
+		$quiz = $attemptobj->get_quiz();
 
-        // Format quiz name to be multilanguage compatible
-        $quizName = format_string($quiz->name, true, 1);
+		// Format quiz name to be multilanguage compatible
+		$quizName = format_string($quiz->name, true, 1);
 
-        // replce page title with quiz name
-        $output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quizName.'</>', $output);
+		// replce page title with quiz name
+		$output2 = preg_replace('/<h1[^>]*>.*?<\/h1>/i', '<h1>'.$quizName.'</>', $output);
 
-        return $output2;
-    }
+		return $output2;
+	}
 
-    // Summary of attempt (submit and finish all)
-    // /mod/quiz/summary.php?attempt=6685
-    public function summary_page($attemptobj, $displayoptions) {
-    	global $CFG;
+	// Summary of attempt (submit and finish all)
+	// /mod/quiz/summary.php?attempt=6685
+	public function summary_page($attemptobj, $displayoptions) {
+		global $CFG;
 
-    	$output = parent::summary_page($attemptobj, $displayoptions);
+		$output = parent::summary_page($attemptobj, $displayoptions);
 
-    	// Add the "Day X" number
-    	$Course = $attemptobj->get_course();
-    	$courseFullName = format_string($Course->fullname, true, 1);
-    	$a_title = explode('-', $courseFullName);
-    	$dayName = strtoupper(trim($a_title[0]));
+		// Add the "Day X" number
+		$Course = $attemptobj->get_course();
+		$courseFullName = format_string($Course->fullname, true, 1);
+		$a_title = explode('-', $courseFullName);
+		$dayName = strtoupper(trim($a_title[0]));
 
-    	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
-    }
+		return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+	}
 
-    public function review_page(quiz_attempt $attemptobj, $slots, $page, $showall, $lastpage, mod_quiz_display_options $displayoptions, $summarydata)
-    {
-    	global $CFG;
-    	$output = parent::review_page($attemptobj, $slots, $page, $showall, $lastpage, $displayoptions, $summarydata);
+	public function review_page(quiz_attempt $attemptobj, $slots, $page, $showall, $lastpage, mod_quiz_display_options $displayoptions, $summarydata)
+	{
+		global $CFG;
 
-    	// Add the "Day X" number
-    	$Course = $attemptobj->get_course();
-    	$courseFullName = format_string($Course->fullname, true, 1);
-    	$a_title = explode('-', $courseFullName);
-    	$dayName = strtoupper(trim($a_title[0]));
+		// Number of allowed attempt for the quiz
+		$allowedAttempt = $attemptobj->get_num_attempts_allowed();
 
-    	return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
-    }
+		// current attempt #
+		$currentAttempt = $attemptobj->get_attempt_number();
+
+		// Display the correct answer if we reach the last attempt
+		if ($allowedAttempt == $currentAttempt) {
+			$displayoptions->rightanswer = 1;
+		} else {
+			$displayoptions->rightanswer = 0;
+		}
+
+		// Render Moodle's original method
+		$output = parent::review_page($attemptobj, $slots, $page, $showall, $lastpage, $displayoptions, $summarydata);
+
+		// Add the "Day X" number
+		$Course = $attemptobj->get_course();
+		$courseFullName = format_string($Course->fullname, true, 1);
+		$a_title = explode('-', $courseFullName);
+		$dayName = strtoupper(trim($a_title[0]));
+
+		return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+	}
 }
