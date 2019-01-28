@@ -36,3 +36,6 @@ $string['region-side-pre'] = 'Kanan';
 $string['completed'] = 'Selesai';
 
 $string['complete-profile'] = 'Sila lengkapkan profil dan kerjaya di profil anda';
+
+// Link Label to see correct quiz answer after second attempt
+$string['see-quiz-answer'] = 'Lihat jawapan kuiz';

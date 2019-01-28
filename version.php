@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2018030904;
+$plugin->version   = 2018030905;
 $plugin->requires  = 2016112900;
 $plugin->component = 'theme_kpdesktop';
 $plugin->dependencies = [

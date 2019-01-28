@@ -36,3 +36,6 @@ $string['region-side-pre'] = 'Right';
 $string['completed'] = 'Completed';
 
 $string['complete-profile'] = 'Please complete the profile and career section of your profile';
+
+// Link Label to see correct quiz answer after second attempt
+$string['see-quiz-answer'] = 'See quiz answers';
