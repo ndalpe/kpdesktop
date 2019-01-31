@@ -579,4 +579,12 @@ table.quizreviewsummary th.cell {
 [data-key="home"], [data-key="calendar"], [data-key="privatefiles"] {
     display: none;
 }
+
+/********************/
+/**** Login Page ****/
+#page-login-index {
+    .forgetpass {
+        display: none;
+    }
+}
 /* stylelint-enable */
