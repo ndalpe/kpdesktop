@@ -151,10 +151,69 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 {
 	// attempt start page
 	// /mod/quiz/view.php?id=57
-	public function view_page($course, $quiz, $cm, $context, $viewobj) {
+	public function view_page($course, $quiz, $cm, $context, $viewobj)
+	{
 		global $CFG;
 
 		$output = parent::view_page($course, $quiz, $cm, $context, $viewobj);
+
+		// Set the right attempt id for each course module
+		// the attempt id was created by doing the quiz and answering
+		// all the right question using the admin account
+		if ($cm->course == '7') { // Day 1
+			$attempt = '7070';
+		} else if ($cm->course == '9') {  // Day 2
+			$attempt = '7041';
+		} else if ($cm->course == '10') { // Day 3
+			$attempt = '7042';
+		} else if ($cm->course == '11') { // Day 4
+			$attempt = '7043';
+		} else if ($cm->course == '12') { // Day 5
+			$attempt = '7044';
+		} else if ($cm->course == '13') { // Day 6
+			$attempt = '7074';
+		} else if ($cm->course == '14') { // Day 7
+			$attempt = '7045';
+		} else if ($cm->course == '15') { // Day 8
+			$attempt = '7075';
+		} else if ($cm->course == '16') { // Day 9
+			$attempt = '7047';
+		} else if ($cm->course == '17') { // Day 10
+			$attempt = '7048';
+		}
+
+		// add the 'See quiz answers' button after second attempt
+		if (count($viewobj->attemptobjs) >= 2) {
+
+			// Add an html wrapper because DOMDocument needs a root node
+			$new_output = '<html>'.$output.'</html>';
+
+			// Create the DOM Object
+			$d = new DOMDocument();
+			$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+			$feedback = $d->getElementById('feedback');
+
+			// Create the containing div to create a box
+			$div = $d->createElement('div');
+			$div->setAttribute('class', 'box continuebutton p-y-1');
+
+			// Create the <a> element
+			$a = $d->createElement('a', get_string('see-quiz-answer', 'theme_kpdesktop'));
+			$a->setAttribute('href', '/theme/kpdesktop/review_quiz.php?attempt='.$attempt.'&cmid='.$cm->id);
+			$a->setAttribute('class', 'btn btn-primary centerpadded lessonbutton standardbutton p-r-1');
+
+			// Add the <a> to the <div>
+			$div->appendChild($a);
+
+			// Add the new div>a to the DOM Object
+			$feedback->parentNode->insertBefore($div, $feedback);
+
+			// Save the resulting html with the div>a
+			$html = $d->saveHTML();
+
+			// Remove the <html> wrapper
+			$output = str_replace(array('<html>', '</html>'), '', $html);
+		}
 
 		// Add the "Day X" number
 		$courseFullName = format_string($course->fullname, true, 1);
