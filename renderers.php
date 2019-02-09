@@ -78,7 +78,22 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 
 		$d = new DOMDocument();
 		$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+		// remove the progress bar
+		$divs = $d->getElementsByTagName('div');
+		for ($i=0; $i < $divs->length; $i++) {
+			if (strstr($divs->item($i)->getAttribute('class'), 'progress_bar') !== false) {
+				$progress_bar = $divs->item($i);
+				$progress_bar->parentNode->removeChild($progress_bar);
+			}
+		}
+
 		$links = $d->getElementsByTagName('a');
+
+		// Multi language proof the "Return" and "Go to ..." buttons
+		for ($i=0; $i < $links->length; $i++) {
+			$links->item($i)->nodeValue = format_string($links->item($i)->nodeValue, true, 1);
+		}
 
 		// add the arrow to return btn
 		for ($i = 0; $i < $links->length; $i++) {
