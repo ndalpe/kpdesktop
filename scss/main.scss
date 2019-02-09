@@ -78,7 +78,7 @@ centering fixed-width block level content—that is, content that has
 
 /****************/
 /**** HEADER ****/
-header {
+nav, header {
     /** hide the bell icon on the left of the profile menu in the header **/
     /** since we have no notification to display, better hide it **/
     #nav-notification-popover-container {
@@ -87,10 +87,10 @@ header {
 
     /** hide site-name the header at the right of the logo **/
     .site-name {
-        display: none;
+        display: none !important;
     }
 
-    /* Hide useless item in the user menu */
+    /** Hide useless item in the user menu **/
     .usermenu {
         a[data-title*="preferences"],
         a[data-title*="grades"],
@@ -98,6 +98,11 @@ header {
             display: none;
         }
     }
+}
+
+/** Override the ugly orange IOMAD color behind the logo **/
+.navbar-light .navbar-brand  {
+    background-color: #FFF;
 }
 
 /*****************************************************/
