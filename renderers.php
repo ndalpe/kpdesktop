@@ -91,58 +91,78 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 		$links = $d->getElementsByTagName('a');
 
 		// Multi language proof the "Return" and "Go to ..." buttons
-		for ($i=0; $i < $links->length; $i++) {
-			$links->item($i)->nodeValue = format_string($links->item($i)->nodeValue, true, 1);
+		for ($j=0; $j < $links->length; $j++) {
+			$links->item($j)->nodeValue = format_string($links->item($j)->nodeValue, true, 1);
 		}
 
-		// add the arrow to return btn
-		for ($i = 0; $i < $links->length; $i++) {
+		// Add arrows on each button
+		foreach ($links as $key => $link) {
 
-			$currentNode = $d->saveHTML($links->item($i));
+			// Get the link href attr
+			$href = $link->getAttribute('href');
 
-			// Return to Day 1 - bla bla bla
-			if (strpos($currentNode, '/course/view.php') !== false) {
-
+			if (strpos($href, '/course/view.php') !== false) {
 				// save the node value
-				$nv = $d->getElementsByTagName('a')[$i]->nodeValue;
+				$nv = $d->getElementsByTagName('a')[$key]->nodeValue;
 
 				// Blank the node value to re-insert it after the <i> icon
-				$d->getElementsByTagName('a')[$i]->nodeValue = '';
+				$d->getElementsByTagName('a')[$key]->nodeValue = '';
 
 				// create the left arrow node
 				$arrow = $d->createElement('i');
 				$arrow->setAttribute('class', 'fa fa-arrow-circle-o-left');
-				$d->getElementsByTagName('a')[$i]->appendChild($arrow);
+				$d->getElementsByTagName('a')[$key]->appendChild($arrow);
+
+				// Add an ID attr so it is easier to style
+				$d->getElementsByTagName('a')[$key]->setAttribute('id', 'eol_return');
 
 				// append the node value
-				$d->getElementsByTagName('a')[$i]->appendChild(
+				$d->getElementsByTagName('a')[$key]->appendChild(
 					$d->createTextNode($nv)
 				);
-			}
-		}
-
-		// Add arrow to forward btn and remove the link from the HTML ie:Go to "How to use"
-		for ($i = 0; $i < $links->length; $i++) {
-
-			$currentNode = $d->saveHTML($links->item($i));
-
-			// if the link leads to a lesson or a quiz
-			if (
-				strpos($currentNode, '/mod/lesson/view.php?id=') !== false ||
-				strpos($currentNode, '/mod/quiz/view.php?id=') !== false
+			} else if (
+				strpos($href, '/mod/lesson/view.php?id=') !== false ||
+				strpos($href, '/mod/quiz/view.php?id=') !== false
 			) {
 				// create the right arrow node
 				$arrow = $d->createElement('i');
 				$arrow->setAttribute('class', 'fa fa-arrow-circle-o-right');
-				$d->getElementsByTagName('a')[$i]->appendChild($arrow);
 
-				// backup the link html with the added icon
-				$goToNextActivity = $d->saveHtml($d->getElementsByTagName('a')[$i]);
+				// Add arrow to btn
+				$d->getElementsByTagName('a')[$key]->appendChild($arrow);
 
-				// Delete the forward link
-				$lnk_fwd = $links->item($i);
-				$lnk_fwd->parentNode->removeChild($lnk_fwd);
+				// Add an ID attr so it is easier to style
+				$d->getElementsByTagName('a')[$key]->setAttribute('id', 'eol_goto');
 			}
+		}
+
+		// Save the button's html and remove them from DOM
+		$savedBtn = array();
+
+		// Cycle the DOM backward to remove all element
+		for ($i = $links->length; --$i >= 0; ) {
+
+			// Get the DOM node
+			$href = $links->item($i);
+
+			// save the button's HTML
+			$savedBtn[] = $d->saveHTML($href);
+
+			// remove the node from the DOM
+			$href->parentNode->removeChild($href);
+		}
+
+		// Add the buttons back into the DOM $d
+		foreach ($savedBtn as $key => $button) {
+
+			// Create a DOM fragment
+			$frag = $d->createDocumentFragment();
+
+			// Append the button's HTML to the DOM Fragment
+			$frag->appendXML($button);
+
+			// append the node value
+			$d->getElementsByTagName('div')[0]->appendChild($frag);
 		}
 
 		// Save the resulting html without the link
@@ -150,9 +170,6 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 
 		// Remove the <html> wrapper
 		$output = str_replace(array('<html>', '</html>'), '', $html);
-
-		// add the activity link at the end of the document fragment
-		$output .= $goToNextActivity;
 
 		// Add bootstrap button css class
 		$output = str_replace('class="centerpadded', 'class="btn btn-primary centerpadded', $output);
