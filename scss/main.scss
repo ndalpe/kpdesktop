@@ -139,7 +139,7 @@ nav, header {
         border: 1px solid #a8a8a8;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
-        border-top-width: 0px;
+        /*border-top-width: 0px;*/
         padding: 0px 0px;
 
         div[role="main"] {
@@ -149,6 +149,11 @@ nav, header {
         h3 {
             color: $blue;
         }
+    }
+
+    // Adjust the width of the right col (Quiz navigation)
+    #region-main-settings-menu.has-blocks, #region-main.has-blocks {
+        width: calc(100% - 295px);
     }
 }
 
@@ -172,6 +177,13 @@ nav, header {
     }
 }
 
+/* Set the border and border-radius on block-column (right) in quiz */
+.path-mod-quiz [data-region="blocks-column"], .pagelayout-inquiz [data-region="blocks-column"] {
+    border: 1px #a8a8a8 solid;
+    border-radius: 0px;
+    border-bottom-right-radius: 0px !important;
+}
+
 .path-mod-quiz, .pagelayout-inquiz {
 
     /** Lower the "Day x - Mini Test 1" title in the paint splash header **/
@@ -188,7 +200,7 @@ nav, header {
     }
 
     /** Remove the min-height on questions pane **/
-    #region-main > .card.card-block {
+    #region-main > .card {
         min-height: auto;
     }
     #region-main {
