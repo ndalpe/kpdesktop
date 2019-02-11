@@ -258,7 +258,9 @@ nav, header {
             }
         }
     }
-    table.quizsummaryofattempt + .submitbtns {
+
+    /** Hide the quiz summary table in the quiz revirew page **/
+    table.quizreviewsummary {
         display: none;
     }
 }
