@@ -242,6 +242,11 @@ nav, header {
     }
 }
 
+/** Hide the "Show one page at a time" link in Quiz navigation block **/
+.path-mod-quiz .othernav a {
+    display: none;
+}
+
 #page-mod-quiz-attempt, #page-mod-quiz-summary, #page-mod-quiz-review {
     .que {
         /* Hide extra question info (top left of question) */
