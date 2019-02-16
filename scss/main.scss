@@ -128,7 +128,8 @@ nav, header {
 .pagelayout-incourse,
 .pagelayout-inquiz {
     #page-header {
-        .p-a-1 {
+        /* remove the padding bottom from the header */
+        .pb-3 {
             padding-bottom: 0px !important;
         }
         .card {
@@ -139,7 +140,6 @@ nav, header {
         border: 1px solid #a8a8a8;
         border-top-left-radius: 0px;
         border-top-right-radius: 0px;
-        /*border-top-width: 0px;*/
         padding: 0px 0px;
 
         div[role="main"] {
@@ -151,9 +151,9 @@ nav, header {
         }
     }
 
-    // Adjust the width of the right col (Quiz navigation)
+    /* Adjust the width of the right col and close the gap between the question and the Quiz navigation */
     #region-main-settings-menu.has-blocks, #region-main.has-blocks {
-        width: calc(100% - 295px);
+        width: calc(100% - 280px);
     }
 }
 
@@ -175,6 +175,13 @@ nav, header {
             padding: 0px 0px 5px 4px;
         }
     }
+
+    /* Style the quiz nav block title */
+    #mod_quiz_navblock_title {
+        font-size: 1.0rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
 }
 
 /* Set the border and border-radius on block-column (right) in quiz */
@@ -182,6 +189,7 @@ nav, header {
     border: 1px #a8a8a8 solid;
     border-radius: 0px;
     border-bottom-right-radius: 0px !important;
+    border-left: 0;
 }
 
 .path-mod-quiz, .pagelayout-inquiz {
@@ -213,16 +221,17 @@ nav, header {
         #mod_quiz_navblock {
             border: 0;
 
-            .card-block {
+            .card-body {
                 background: transparent url([[pix:theme|bkg_block]]) repeat-x left top;
                 padding: 0;
 
                 /** Format Quiz navigation block header **/
-                h3 {
+                h5 {
                     color: #FFF;
+                    display: block !important;
                     font-family: "Open Sans", Arial, sans-serif;
                     margin-bottom: 0;
-                    padding: 1rem;
+                    padding: 0.75rem 0 0 1rem;
                     &:before {
                         color: #FFF;
                         content: "\f0b2";
@@ -236,6 +245,9 @@ nav, header {
                     border-right: 1px #ccc solid;
                     border-left: 1px #ccc solid;
                     padding: 1rem;
+                }
+                .card-text.content.mt-3 {
+                    margin-top: 0.7rem !important;
                 }
             }
         }

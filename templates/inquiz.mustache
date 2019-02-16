@@ -68,7 +68,7 @@
                     <div> {{{ output.region_main_settings_menu }}} </div>
                 </div>
                 {{/hasregionmainsettingsmenu}}
-                <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
+                <section id="region-main" {{#hasblocks}}class="has-blocks matchHeight mb-3"{{/hasblocks}}>
                     <div class="card">
                         <div class="card-body">
                             {{#hasregionmainsettingsmenu}}
@@ -82,7 +82,7 @@
                     </div>
                 </section>
                 {{#hasblocks}}
-                <section data-region="blocks-column" class="d-print-none">
+                <section data-region="blocks-column" class="d-print-none matchHeight">
                     {{{ sidepreblocks }}}
                 </section>
                 {{/hasblocks}}
@@ -100,5 +100,11 @@
 require(['theme_boost/loader']);
 require(['theme_boost/drawer'], function(mod) {
     mod.init();
+});
+
+require(['jquery', '/theme/kpdesktop/amd/src/easypiechart.min.js', '/theme/kpdesktop/amd/src/jquery.matchHeight-min.js'], function($, Chart, MatchHeight) {
+    /* MatchHeight content with the toolbar */
+    $('.matchHeight').matchHeight();
+    $('#kpdesign_toolbar .btn').matchHeight({ property: 'width' });
 });
 {{/js}}
