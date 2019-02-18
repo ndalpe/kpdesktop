@@ -76,6 +76,11 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 		// Add an html wrapper because DOMDocument needs a root node
 		$new_output = '<html>'.$output.'</html>';
 
+		// Added to prevent the DOM parser to throw a warning when & occurs
+		// as the parser believe this is an unclosed html entity
+		// DOMDocument::loadHTML(): htmlParseEntityRef: no name in Entity
+		$new_output = str_replace('&', '$amp;', $new_output);
+
 		$d = new DOMDocument();
 		$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
