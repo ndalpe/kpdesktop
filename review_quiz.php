@@ -262,6 +262,10 @@ $output = $PAGE->get_renderer('mod_quiz');
 $regions = $PAGE->blocks->get_regions();
 $PAGE->blocks->add_fake_block($navbc, reset($regions));
 */
+
+/* declare $summarydata as we commented it above since we do not want the full summary data table */
+$summarydata = array();
+
 echo $output->review_page($attemptobj, $slots, $page, $showall, $lastpage, $options, $summarydata);
 
 // Trigger an event for this review.
