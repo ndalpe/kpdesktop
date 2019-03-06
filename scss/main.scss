@@ -598,11 +598,17 @@ table.quizreviewsummary th.cell {
     width: 12em;
 }
 
-/*****************************/
+/************************/
 /**** Edit user page ****/
 #id_moodle_additional_names,
 #id_moodle_optional,
 #id_moodle_picture {
+    display: none;
+}
+
+/******************************************************************************/
+/**** Hide the "Change course enrolments" link in "Dashboard - Edit Users" ****/
+.hide_change_course_enrol_link {
     display: none;
 }
 
