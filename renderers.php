@@ -198,25 +198,25 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 		// the attempt id was created by doing the quiz and answering
 		// all the right question using the admin account
 		if ($cm->course == '7') { // Day 1
-			$attempt = '7070';
+			$attempt = '7203';
 		} else if ($cm->course == '9') {  // Day 2
-			$attempt = '7041';
+			$attempt = '7204';
 		} else if ($cm->course == '10') { // Day 3
-			$attempt = '7042';
+			$attempt = '7205';
 		} else if ($cm->course == '11') { // Day 4
-			$attempt = '7043';
+			$attempt = '7206';
 		} else if ($cm->course == '12') { // Day 5
-			$attempt = '7044';
+			$attempt = '7207';
 		} else if ($cm->course == '13') { // Day 6
-			$attempt = '7074';
+			$attempt = '7208';
 		} else if ($cm->course == '14') { // Day 7
-			$attempt = '7045';
+			$attempt = '7209';
 		} else if ($cm->course == '15') { // Day 8
-			$attempt = '7075';
+			$attempt = '7210';
 		} else if ($cm->course == '16') { // Day 9
-			$attempt = '7047';
+			$attempt = '7211';
 		} else if ($cm->course == '17') { // Day 10
-			$attempt = '7048';
+			$attempt = '7212';
 		}
 
 		// Verify that if we have an attempt with an inprogress state
