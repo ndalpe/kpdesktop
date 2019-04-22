@@ -219,8 +219,20 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 			$attempt = '7048';
 		}
 
-		// add the 'See quiz answers' button after second attempt
-		if (count($viewobj->attemptobjs) >= 2) {
+		// Verify that if we have an attempt with an inprogress state
+		$attempInProgress = false;
+		foreach ($viewobj->attempts as $key => $value) {
+			if ($value->state == 'inprogress') {
+				$attempInProgress = true;
+			}
+		}
+
+		// add the 'See quiz answers' button if
+		// we are at the second attempt and the attempt is completed
+		// or we are at the third attempt
+		if (
+			(count($viewobj->attemptobjs) == 2 && $attempInProgress === false) || (count($viewobj->attemptobjs) == 3)
+		) {
 
 			// Add an html wrapper because DOMDocument needs a root node
 			$new_output = '<html>'.$output.'</html>';
@@ -228,7 +240,6 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 			// Create the DOM Object
 			$d = new DOMDocument();
 			$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-			$feedback = $d->getElementById('feedback');
 
 			// Create the containing div to create a box
 			$div = $d->createElement('div');
@@ -237,13 +248,13 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 			// Create the <a> element
 			$a = $d->createElement('a', get_string('see-quiz-answer', 'theme_kpdesktop'));
 			$a->setAttribute('href', '/theme/kpdesktop/review_quiz.php?attempt='.$attempt.'&cmid='.$cm->id);
-			$a->setAttribute('class', 'btn btn-primary centerpadded lessonbutton standardbutton p-r-1');
+			$a->setAttribute('class', 'btn btn-secondary centerpadded lessonbutton standardbutton p-r-1');
 
 			// Add the <a> to the <div>
 			$div->appendChild($a);
 
-			// Add the new div>a to the DOM Object
-			$feedback->parentNode->insertBefore($div, $feedback);
+			// Add the new div>a to the page
+			$d->appendChild($div);
 
 			// Save the resulting html with the div>a
 			$html = $d->saveHTML();
