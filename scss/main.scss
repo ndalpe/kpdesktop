@@ -26,6 +26,71 @@ body {
     color: #000;
 }
 
+.big_number {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.img-title {
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.table_note {
+    font-size: 0.8em;
+}
+
+.red_dot {
+    color: #c00;
+    font-size: 1.4em;
+    line-height: 0.5em;
+}
+
+.svg_img {
+    width: 100%;
+}
+
+/* Rotate text -90deg - used mainly for table */
+table th.rotate {
+    vertical-align: middle;
+}
+
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+  border: 0;
+}
+
+.rotate {
+
+  transform: rotate(-90deg);
+
+  /* Safari */
+  -webkit-transform: rotate(-90deg);
+
+  /* Firefox */
+  -moz-transform: rotate(-90deg);
+
+  /* IE */
+  -ms-transform: rotate(-90deg);
+
+  /* Opera */
+  -o-transform: rotate(-90deg);
+
+  /* Internet Explorer */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+.o {
+    font-size: 2em;
+}
+
+/* Table hover */
+.rowSpanHover {
+    background-color: rgba(0,0,0,0.10);
+}
+
 /**
 Additionally, Bootstrap also includes an `.mx-auto` class for horizontally
 centering fixed-width block level content—that is, content that has
