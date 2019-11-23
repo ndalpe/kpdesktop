@@ -8,17 +8,11 @@ if ($("body.pagelayout-course").length > 0) {
 	/**** Replace lesson and activity icon ****/
 	$.each(['lesson', 'quiz'], function( index, value ) {
 		$("li.activity."+value).each(function(){
-			actionTitle = $(this).find('span.actions img').attr('title');
-			if (typeof actionTitle !== 'undefined') {
-				if (actionTitle.match("^Completed")) {
-					$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_completed.png');
-				}
-
-				if (actionTitle.match("^Not completed")) {
-					$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_in_progress.png');
-				}
+			var activity_class_list = $(this).attr('class');
+			if (activity_class_list.includes('not_completed')) {
+				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_in_progress.png');
 			} else {
-				$(this).find(".activityinstance .dimmed img").attr('src', '/theme/kpdesktop/pix/'+value+'_not_started.png');
+				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_completed.png');
 			}
 		});
 	});
@@ -31,5 +25,18 @@ if ($("#page-blocks-iomad_company_admin-company_user_create_form #currentcourses
 	// selecting all the course in the Essential category
 	$("#currentcourses").val([7,9,10,11,12,13,14,15,16,17,18]).change();
 }
+
+
+$(".table-rowspanHover td").hover(function() {
+	$el = $(this);
+	$el.parent().addClass("rowSpanHover");
+	if ($el.parent().has('td[rowspan]').length == 0) {
+		$el.parent().prevAll('tr:has(td[rowspan]):first').find('td[rowspan]')
+			.addClass("rowSpanHover");
+	}
+}, function() {
+	$el.parent().removeClass("rowSpanHover").prevAll('tr:has(td[rowspan]):first')
+		.find('td[rowspan]').removeClass("rowSpanHover");
+});
 
 });

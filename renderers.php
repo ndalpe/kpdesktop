@@ -2,6 +2,7 @@
 include_once($CFG->dirroot . "/report/iomadanalytics/classes/FlatFile.php");
 include_once($CFG->dirroot . "/mod/lesson/renderer.php");
 include_once($CFG->dirroot . "/mod/quiz/renderer.php");
+include_once($CFG->dirroot . "/course/renderer.php");
 
 class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 {
@@ -82,7 +83,7 @@ class theme_kpdesktop_mod_lesson_renderer extends mod_lesson_renderer
 		$new_output = str_replace('&', '$amp;', $new_output);
 
 		$d = new DOMDocument();
-		$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+		$d->loadHTML(mb_convert_encoding($new_output, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
 		// remove the progress bar
 		$divs = $d->getElementsByTagName('div');
@@ -239,7 +240,8 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 
 			// Create the DOM Object
 			$d = new DOMDocument();
-			$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+			//$d->loadHTML($new_output, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+			$d->loadHTML(mb_convert_encoding($new_output, 'HTML-ENTITIES', 'UTF-8'), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
 			// Create the containing div to create a box
 			$div = $d->createElement('div');
@@ -342,5 +344,41 @@ class theme_kpdesktop_mod_quiz_renderer extends mod_quiz_renderer
 		$dayName = strtoupper(trim($a_title[0]));
 
 		return $output.'<style type="text/css">.pagelayout-incourse #page-header .card::before{content: "'.$dayName.'";}</style>';
+	}
+}
+
+class theme_kpdesktop_core_course_renderer extends core_course_renderer {
+
+	/**
+	 * Renders HTML to display one course module for display within a section.
+	 *
+	 * This function calls:
+	 * {@link core_course_renderer::course_section_cm()}
+	 *
+	 * @param stdClass $course
+	 * @param completion_info $completioninfo
+	 * @param cm_info $mod
+	 * @param int|null $sectionreturn
+	 * @param array $displayoptions
+	 * @return String
+	 */
+	public function course_section_cm_list_item($course, &$completioninfo, cm_info $mod, $sectionreturn, $displayoptions = array()) {
+		global $USER;
+
+	    $output = '';
+	    if ($modulehtml = $this->course_section_cm($course, $completioninfo, $mod, $sectionreturn, $displayoptions)) {
+	        $modclasses = 'activity ' . $mod->modname . ' modtype_' . $mod->modname . ' ' . $mod->extraclasses;
+
+	    	// add completion status to the activity's <li> css class list
+			$completion_state = $completioninfo->get_data($mod, false, $USER->id);
+			if ($completion_state->completionstate === 0) {
+				$modclasses .= ' not_completed';
+			} else {
+				$modclasses .= ' completed';
+			}
+
+	        $output .= html_writer::tag('li', $modulehtml, array('class' => $modclasses, 'id' => 'module-' . $mod->id));
+	    }
+	    return $output;
 	}
 }
