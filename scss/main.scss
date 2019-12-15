@@ -443,6 +443,7 @@ nav, header {
         img.activityicon {
             height: 30px;
             width: 30px;
+            visibility: hidden;
         }
     }
 }
@@ -621,6 +622,7 @@ nav, header {
 /** All pages **/
 #page-header {
     h1 {
+        font-size: 30px;
         color: #fff;
     }
     .card {

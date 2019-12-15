@@ -10,17 +10,19 @@ if ($("body.pagelayout-course").length > 0) {
 		$("li.activity."+value).each(function(){
 			var activity_class_list = $(this).attr('class');
 			if (activity_class_list.includes('not_completed')) {
-				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_in_progress.png');
+				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_in_progress.png').css('visibility', 'visible');
+			} else if (activity_class_list.includes(' completed')) {
+				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_completed.png').css('visibility', 'visible');
 			} else {
-				$(this).find('.activityinstance img').attr('src', '/theme/kpdesktop/pix/'+value+'_completed.png');
+				$(this).find(".activityinstance .dimmed img").attr('src', '/theme/kpdesktop/pix/'+value+'_not_started.png');
 			}
 		});
 	});
 }
 
-	/*************************************************************/
-	/**** Select all course by default when creating new user ****/
-	/**** blocks/iomad_company_admin/company_user_create_form.php ****/
+/*************************************************************/
+/**** Select all course by default when creating new user ****/
+/**** blocks/iomad_company_admin/company_user_create_form.php ****/
 if ($("#page-blocks-iomad_company_admin-company_user_create_form #currentcourses").length > 0) {
 	// selecting all the course in the Essential category
 	$("#currentcourses").val([7,9,10,11,12,13,14,15,16,17,18]).change();

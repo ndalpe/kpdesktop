@@ -371,7 +371,7 @@ class theme_kpdesktop_core_course_renderer extends core_course_renderer {
 
 	    	// add completion status to the activity's <li> css class list
 			$completion_state = $completioninfo->get_data($mod, false, $USER->id);
-			if ($completion_state->completionstate === 0) {
+			if (intval($completion_state->completionstate) === 0) {
 				$modclasses .= ' not_completed';
 			} else {
 				$modclasses .= ' completed';
